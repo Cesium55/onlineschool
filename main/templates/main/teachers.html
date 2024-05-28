@@ -1,0 +1,150 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Преподаватели</title>
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <link rel="shortcut icon" href="{% static 'main/img/favicon.ico' %}">
+    <style>
+        .like {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+            background-color: aliceblue;
+            color: black;  
+            width: 40px;
+            height: 40px;
+            margin-left: 50px;
+        }
+        .like.clicked {
+            border-radius: 20px;
+            background-color: pink;
+            color: black;  /* Цвет лайка при клике */
+        }
+        .like img {
+            margin-left: 0px;
+            width: 100%; /* изображение будет занимать 100% ширины кнопки */
+            height: 100%; /* изображение будет занимать 100% высоты кнопки */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class = "All_header_menu">
+            <div class="Logo">
+                <h1>
+                    <a href="{% url 'index' %}">
+                        Aleson
+                    </a>
+                </h1>
+            </div>
+            <div class="Top_menu">
+                <ul>
+                    <li><a href = "{% url 'teachers' %}" >Преподаватели</a></li>
+                    <li><a href = "#" >Предметы</a></li>
+                    <li><a href = "{% url 'aboutUs' %}" >О нас</a></li>
+                </ul>
+            </div>
+            <div class="Authorization">
+                <h2>
+                    <a href = "{% url 'authorization' %}">
+                        Авторизация
+                    </a>
+                </h2>
+            </div>
+        </div>
+        
+    </header>
+    <div class="Teachers">
+        <p><strong>Список преподавателей</strong></p>
+        <ol>
+            <script>
+                function changeColor(button) {
+                    button.classList.toggle("clicked");
+                }
+            </script>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+                function updateLikesCount() {
+                    $.ajax({
+                        url: 'http://127.0.0.1:8000/likes_count/', 
+                        type: 'GET',
+                        success: function(data) {
+                            $('#sonya-likes-count').text(data.sonya_likes_count);
+                            $('#lesha-likes-count').text(data.lesha_likes_count);
+                            $('#nastya-likes-count').text(data.nastya_likes_count);
+                            $('#chmo-likes-count').text(data.chmo_likes_count);
+                        }
+                    });
+                }
+        
+                $(document).ready(function() {
+                    updateLikesCount();
+                    setInterval(updateLikesCount, 1000);
+                });
+            </script>
+            <li>Бачинская София Владимировна</li>
+            <img width="150" src ="{% static 'main/img/соня.png' %}">
+            <div>
+                
+                <form data-id="sonya" action="{% url 'like' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="form_data_id" value="sonya">
+                    <div style="display: flex;">
+                        <button type="submit" id="likeButton1" class="like" onclick="changeColor(this)">
+                            <img src="{% static 'main/img/like.png' %}" alt="Like">
+                        </button>
+                        <h1 style="margin-left: 10px; color: aliceblue;"><span id="sonya-likes-count"></span></h1>
+                    </div>
+                </form>
+            </div>
+            
+            
+            <li>Мириненко Алексей Владимирович</li>
+            <img width="150" src ="{% static 'main/img/леша.png' %}">
+            <form data-id="lesha" action="{% url 'like' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="form_data_id" value="lesha">
+                <div style="display: flex;">
+                    <button type="submit" id="likeButton2" class="like" onclick="changeColor(this)">
+                        <img src="{% static 'main/img/like.png' %}" alt="Like">
+                    </button>
+                    <h1 style="margin-left: 10px; color: aliceblue;"><span id="lesha-likes-count"></span></h1>
+                </div>
+            </form>
+
+            <li>Каптан Анастасия Витальевна</li>
+            <img width="150" src ="{% static 'main/img/настя.png' %}">
+            <form data-id="nastya" action="{% url 'like' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="form_data_id" value="nastya">
+                <div style="display: flex;">
+                    <button type="submit" id="likeButton3" class="like" onclick="changeColor(this)">
+                        <img src="{% static 'main/img/like.png' %}" alt="Like">
+                    </button>
+                    <h1 style="margin-left: 10px; color: aliceblue;"><span id="nastya-likes-count"></span></h1>
+                </div>
+            </form>
+
+            <li>Загорулько Олег Александрович</li>
+            <img width="150" src ="{% static 'main/img/олег.png' %}">
+            <form data-id="chmo" action="{% url 'like' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="form_data_id" value="chmo">
+                <div style="display: flex;">
+                    <button type="submit" id="likeButton4" class="like" onclick="changeColor(this)">
+                        <img src="{% static 'main/img/like.png' %}" alt="Like">
+                    </button>
+                    <h1 style="margin-left: 10px; color: aliceblue;"><span id="chmo-likes-count"></span></h1>
+                </div>
+            </form>
+
+        </ol>
+    </div>
+</body>
+</html>

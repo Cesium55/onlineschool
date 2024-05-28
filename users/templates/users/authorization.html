@@ -1,0 +1,102 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Анна">
+    <meta name="discription" content="Онлайн школа для Сони">
+    <title>Авторизация</title>
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/authorization.css' %}">
+    <link rel="shortcut icon" href="{% static 'main/img/favicon.ico' %}">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="{% static 'main/js/script.js' %}" defer></script>
+</head>
+<body>
+    <header>
+        <div class = "All_header_menu">
+            <div class="Logo">
+                <h1>
+                    <a href="{% url 'index' %}">
+                        Aleson
+                    </a>
+                </h1>
+            </div>
+            <div class="Top_menu">
+                <ul>
+                    <li><a href = "{% url 'teachers' %}" >Преподаватели</a></li>
+                    <li><a href = "#" >Предметы</a></li>
+                    <li><a href = "{% url 'aboutUs' %}" >О нас</a></li>
+                </ul>
+            </div>
+
+        </div>
+        
+    </header>
+
+    <article class="Container">
+        <div class="Block">
+            <section class="block__item block-item">
+                <h2 class="block-item__title">У Вас уже есть аккаунт?</h2>
+                <button class="block-item__btn signin-btn">Войти</button>
+            </section>
+            <section class="block_item block-item">
+                <h2 class="block-item__title">У Вас еще нет аккаунта?</h2>
+                <button class="block-item__btn signup-btn">Зарегестрироваться</button>
+            </section>
+            
+            <div class="form-box">
+                <form action="" method="post" class="form form__signin">
+                    {% csrf_token %}
+                    <h3 class="form__title">Вход</h3>
+                    
+                    <p>
+                        <input type="email" class="form__input form__email__signin" placeholder="Email" required>
+                    </p>
+                    <p>
+                        <input type="password" class="form__input form__password__signin" placeholder="Пароль" required>
+                    </p>
+                    <p>
+                        <button type="submit" class="form__btn form__btn__signin">Войти</button>
+                    </p>
+                    <p>
+                        <a href="#" class="form__forgot">Восстановить пароль</a>
+                    </p>
+                </form>
+
+                <form class="form form__signup" method="post" action="{% url 'authorization' %}">
+                    {% csrf_token %}
+                    <h3 class="form__title">Регистрация</h3>
+                    <p>
+                        {{ form.login }}
+                    </p>
+                    <p>
+                        {{ form.password }}
+                    </p>
+
+                    
+                    
+                    <!-- <p>
+                        <input type="email" class="form__input form__email__signup" placeholder="Email" required>
+                    </p>
+                    <p>
+                        <input type="password" class="form__input form__password__signup" placeholder="Пароль" required>
+                    </p> -->
+                    <p>
+                        <input type="password" class="form__input form__confpassword__signup" placeholder="Подтвердите пароль" required>
+                    </p>
+                    <!-- <span>{{ error }}</span> -->
+                    <p>
+                        <button type="submit" class="form__btn form__btn__signup">Зарегистрироваться</button>
+                    </p>
+                </form>
+            </div>
+
+        </div>
+    </article>
+
+</body>
+</html>

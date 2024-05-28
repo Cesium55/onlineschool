@@ -1,0 +1,82 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Анна">
+    <meta name="discription" content="Онлайн школа для Сони">
+    <title>О нас</title>
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <link rel="shortcut icon" href="{% static 'main/img/favicon.ico' %}">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class = "All_header_menu">
+            <div class="Logo">
+                <h1>
+                    <a href="{% url 'index' %}">
+                        Aleson
+                    </a>
+                </h1>
+            </div>
+            <div class="Top_menu">
+                <ul>
+                    <li><a href = "{% url 'teachers' %}" >Преподаватели</a></li>
+                    <li><a href = "#" >Предметы</a></li>
+                    <li><a href = "{% url 'aboutUs' %}" >О нас</a></li>
+                </ul>
+            </div>
+
+            <div class="Authorization">
+                <h2>
+                    <a href = "{% url 'authorization' %}">
+                        Авторизация
+                    </a>
+                </h2>
+            </div>
+        </div>
+        
+    </header>
+
+    <div class="text-section">
+        <h2>Мы находимся здесь</h2>
+    </div>
+
+    
+    <div id="map" class = "map"></div>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=fd622629-dd7a-4960-acca-5ce445c4a319&lang=ru_RU" type="text/javascript"></script>
+    <script>
+        ymaps.ready(init);
+
+        function init(){
+            let map = new ymaps.Map('map', {
+                center: [44.64025004512323,41.93657357011407],
+                zoom: 17
+            })
+        }
+    </script>
+    
+    <h1>Стоимость одного урока в долларах:</h1>
+    <p class = "dollar-rate" id="dollar-rate"></p>
+
+    <script>
+        fetch('https://api.exchangerate-api.com/v4/latest/USD')
+            .then(response => response.json())
+            .then(data => {
+                const rate = data.rates.RUB;
+                document.getElementById('dollar-rate').textContent = `100USD = ${100*rate.toFixed(2)} RUB`;
+            })
+            .catch(error => console.error('Ошибка при получении курса доллара:', error));
+    </script>
+
+
+    
+    
+
+</body>
+</html>

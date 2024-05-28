@@ -1,0 +1,49 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Анна">
+    <meta name="discription" content="Онлайн школа для Сони">
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <link rel="shortcut icon" href="{% static 'main/img/favicon.ico' %}">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <header>
+        <div class = "All_header_menu">
+            <div class="Logo">
+                <h1>
+                    <a href="{% url 'index' %}">
+                        Aleson
+                    </a>
+                </h1>
+            </div>
+            <div class="Top_menu">
+                <ul>
+                    <li><a href = "{% url 'teachers' %}" >Преподаватели</a></li>
+                    <li><a href = "#" >Предметы</a></li>
+                    <li><a href = "{% url 'aboutUs' %}" >О нас</a></li>
+                </ul>
+            </div>
+            <div class="Authorization">
+                <h2>
+                    <a href = "{% url 'authorization' %}">
+                        Авторизация
+                    </a>
+                </h2>
+            </div>
+        </div>
+        
+    </header>
+    <div class="Advice">
+        <h3> <em>Совет от создателя школы</em></h3>
+        <video width="300px" src="{% static 'main/img/совет.mp4' %}" controls></video>
+    </div>
+</body>
+</html>
